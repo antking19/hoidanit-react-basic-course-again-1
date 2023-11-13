@@ -1,39 +1,30 @@
 import React from "react";
+import AddUserInfor from "./AddUserInfor";
+import DisplayInfor from "./DisplayInfor";
 
 class MyComponent extends React.Component {
     state = {
-        name: "Marcus",
-        age: 28,
+        listUsers: [
+            { id: 1, name: "Marcus", age: 18 },
+            { id: 2, name: "Cheung", age: 30 },
+            { id: 3, name: "Cuong", age: 33 },
+        ],
     };
 
-    handleClick() {
-        console.log(">> Click Event");
+    handleAddNewUser = (userObj) => {
+        console.log(userObj);
         this.setState({
-            name: "Kien Cuong",
-            age: 33,
-        });
-    }
-
-    handleOnChangeInput = (event) => {
-        event.preventDefault();
-        this.setState({
-            name: event.target.value,
+            listUsers: [userObj, ...this.state.listUsers],
         });
     };
 
     render() {
         return (
             <div>
-                My first component <br />
-                My name is {this.state.name}, I'm {this.state.age}
-                {/* <button onClick={() => this.handleClick()}>Click Me</button> */}
-                <form>
-                    <input
-                        type="text"
-                        onChange={(event) => this.handleOnChangeInput(event)}
-                    />
-                    <button>Submit</button>
-                </form>
+                <AddUserInfor handleAddNewUser={this.handleAddNewUser} />
+                <br />
+                <br />
+                <DisplayInfor listUsers={this.state.listUsers} />
             </div>
         );
     }
